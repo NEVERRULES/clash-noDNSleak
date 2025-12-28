@@ -1,2 +1,4 @@
 # clash
 clash verge rev防止DNS泄露全局扩展覆写脚本
+基于xiaolin的配置修改，优化了代理分组中微软服务实际为icloud服务的错误
+地区代理分组加上了图标
