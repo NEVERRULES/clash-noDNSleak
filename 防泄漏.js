@@ -75,7 +75,7 @@ const ruleProviders = {
     "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/apple.txt",
     "path": "./ruleset/loyalsoldier/apple.yaml"
   },
-  "google": {//[慎用]Google 在中国大陆可直连的域名列表 google
+  "google": {//[慎用]Google 在中国大陆可直连的域名列表
     ...ruleProviderCommon,
     "behavior": "domain",
     "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/google.txt",
@@ -153,6 +153,12 @@ const ruleProviders = {
     "url": "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/Netflix.txt",
     "path": "./ruleset/xiaolin-007/Netflix.yaml"
   },
+  "Emby": {
+    ...ruleProviderCommon,
+    "behavior": "classical",
+    "url": "https://raw.githubusercontent.com/NEVERRULES/clash-noDNSleak/main/rule/Emby.yaml",
+    "path": "./ruleset/custom/Emby.yaml"
+  },
   "Spotify": {
     ...ruleProviderCommon,
     "behavior": "classical",
@@ -181,11 +187,13 @@ const ruleProviders = {
 // 规则
 const rules = [
   // 自定义规则
+  "DOMAIN-SUFFIX,orzice.com,全局直连",//三角洲数据查询
   "DOMAIN-SUFFIX,googleapis.cn,节点选择", // Google服务
   "DOMAIN-SUFFIX,gstatic.com,节点选择", // Google静态资源
   "DOMAIN-SUFFIX,xn--ngstr-lra8j.com,节点选择", // Google Play下载服务
   "DOMAIN-SUFFIX,github.io,节点选择", // Github Pages
   "DOMAIN,v2rayse.com,节点选择", // V2rayse节点工具
+  "RULE-SET,Emby,Emby",
   // Loyalsoldier 规则集
   "RULE-SET,applications,全局直连",
   "RULE-SET,private,全局直连",
@@ -271,6 +279,15 @@ function main(config) {
       "include-all": true,
       "filter": "^(?!.*(官网|套餐|流量|异常|剩余)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/netflix.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "Emby",
+      "type": "select",
+      "proxies": ["日本","日本-自动","节点选择","全局直连"],
+      "include-all": true,
+      "filter": "^(?!.*(官网|套餐|流量|异常|剩余)).*$",
+      "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Emby.png"
     },
     {
       ...groupBaseOption,
@@ -363,62 +380,50 @@ function main(config) {
       "proxies": ["REJECT", "DIRECT"],
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/block.svg"
     },
-    {
+   {
       ...groupBaseOption,
-      "name": "美国-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "美国",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广美|US|美国|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
     },
     {
       ...groupBaseOption,
-      "name": "香港-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "香港",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广港|香港|HK|Hong Kong|🇭🇰|HongKong)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
     },
     {
       ...groupBaseOption,
-      "name": "台湾-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "台湾",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
     },
     {
       ...groupBaseOption,
-      "name": "日本-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "日本",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
     },
     {
       ...groupBaseOption,
-      "name": "韩国-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "韩国",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
     },
     {
       ...groupBaseOption,
-      "name": "新加坡-自动",
-      "type": "url-test",
-      "interval":120,
-      "tolerance": 200,
+      "name": "新加坡",
+      "type": "select",
       "include-all": true,
       "filter": "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$",
       "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
